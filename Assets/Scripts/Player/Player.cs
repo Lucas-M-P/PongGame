@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class Player : MonoBehaviour
     [Header("Points")]
     public int CurrentPoints;
     public TextMeshProUGUI TextPoints;
+    public int MaxPoints;
+
+    [Header("UI")]
+    public Image Image;
+
+
+    public string Name;
 
     private void Awake()
     {
@@ -39,9 +47,10 @@ public class Player : MonoBehaviour
     {
         CurrentPoints++;
         UpdateIU();
+        CheckMaxPoints();
     }
 
-    private void ResetPlayer()
+    public void ResetPlayer()
     {
         CurrentPoints = 0;
         UpdateIU();
@@ -50,5 +59,24 @@ public class Player : MonoBehaviour
     private void UpdateIU()
     {
         TextPoints.text = CurrentPoints.ToString();
+    }
+
+    private void CheckMaxPoints()
+    {
+        if(CurrentPoints >= MaxPoints)
+        {
+            GameManager.Instance.EndGame();
+            HighscoreManager.Instance.SavePlayerWin(this);
+        }
+    }
+
+    public void ChangeColor(Color color)
+    {
+        Image.color = color;
+    }
+
+    public void ChangeName(string name)
+    {
+        Name = name;
     }
 }

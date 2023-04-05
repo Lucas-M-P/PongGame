@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
 
     public float TimeToSetBallFree = 1f;
 
+    public List<Player> ListPlayers;
+
+    [Header("Menus")]
+    public GameObject UiMainMenu;
+
     private void Awake()
     {
         Instance = this;
@@ -22,13 +27,29 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(SetBallFree), TimeToSetBallFree);
     }
 
-    private void SetBallFree()
+    public void SetBallFree()
     {
         Ball.CanMove(true);
     }
 
     public void StartGame()
     {
-        Ball.CanMove(true);
+        StateMachine.Instance.StartGame();
+    }
+
+    public void EndGame()
+    {
+        StateMachine.Instance.EndGame();
+    }
+
+    public void ShowMenu()
+    {
+        UiMainMenu.SetActive(true);
+        Ball.CanMove(false);
+
+        foreach (var item in ListPlayers)
+        {
+            item.ResetPlayer();
+        }
     }
 }

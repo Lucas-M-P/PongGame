@@ -26,7 +26,7 @@ public class StateMachine : MonoBehaviour
         dictionaryStates.Add(States.MENU, new StateBase());
         dictionaryStates.Add(States.PLAYING, new StatePlaying());
         dictionaryStates.Add(States.RESET_POSITION, new StateResetPosition());
-        dictionaryStates.Add(States.END_GAME, new StateBase());
+        dictionaryStates.Add(States.END_GAME, new StateEndGame());
 
         SwitchState(States.MENU);
     }
@@ -50,15 +50,20 @@ public class StateMachine : MonoBehaviour
         {
             _currentState.OnStateStay();
         }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SwitchState(States.PLAYING);
-        }
     }
 
     public void ResetPosition()
     {
         SwitchState(States.RESET_POSITION);
+    }
+
+    public void StartGame()
+    {
+        SwitchState(States.PLAYING);
+    }
+
+    public void EndGame()
+    {
+        SwitchState(States.END_GAME);
     }
 }

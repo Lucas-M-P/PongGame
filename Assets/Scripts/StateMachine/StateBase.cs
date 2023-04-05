@@ -25,7 +25,7 @@ public class StatePlaying : StateBase
     public override void OnStateEnter(object o = null)
     {
         base.OnStateEnter(o);
-        GameManager.Instance.StartGame();
+        GameManager.Instance.SetBallFree();
     }
 }
 
@@ -35,5 +35,14 @@ public class StateResetPosition : StateBase
     {
         base.OnStateEnter(o);
         GameManager.Instance.ResetBall();
+    }
+}
+
+public class StateEndGame : StateBase
+{
+    public override void OnStateEnter(object o = null)
+    {
+        base.OnStateEnter(o);
+        GameManager.Instance.ShowMenu();
     }
 }
